@@ -32,6 +32,7 @@ namespace Server
             services.AddControllers();
             services.AddCors();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICharacterService, CharacterService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Server", Version = "v1" });

@@ -14,19 +14,19 @@
         <div class="label" for="fullname">
           <p  >Полное имя персонажа:</p>
         </div>
-        <input name="fullname" v-model="fullname" placeholder="">
+        <input name="fullname" id="fullname" v-model="fullname" placeholder="">
       </div>
       <div>
         <div for="photoLink" class="label">
          <p >Ссылка на фото героя:</p>
         </div>
-        <input name="photoLink" v-model="photoLink" placeholder="" type="text">
+        <input name="photoLink" id="photoLink" v-model="photoLink" placeholder="" type="text">
       </div>
       <div>
         <div for="rating" class="label">
          <p >Рейтинг героя</p>
         </div>
-        <input name="rating" v-model="rating" placeholder="" type="number">
+        <input name="rating" id="rating" v-model="rating" placeholder="" type="number">
       </div>
         
       <input class="btn" type="submit" value="Готово">
@@ -55,7 +55,7 @@ export default {
       
         const { id,photoLink, fullname, rating} = this;
         const res = await fetch(
-          "https://localhost:5001/api/Auth",
+          "https://localhost:5001/api/Character",
           {
             method: "POST",
             headers: {
@@ -70,6 +70,15 @@ export default {
           }
         ).then(response=>{
           this.responeFromServer = response.statusText
+          let el = document.getElementById("photoLink");
+          el.value = "";
+          el.dispatchEvent(new Event('input'));
+          let el2 = document.getElementById("fullname");
+          el2.value = "";
+          el2.dispatchEvent(new Event('input'));
+          let el3 = document.getElementById("rating");
+          el3.value = "100";
+          el3.dispatchEvent(new Event('input'));
 
             return response.json()
           })
