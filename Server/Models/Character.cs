@@ -7,6 +7,6 @@ namespace Server.Models
         public int Id {get;set;}
         public string Fullname {get;set;}
         public string PhotoLink {get;set;}
-        public int Rating {get;set;}
+        public double Rating {get;set;}
     }
 }

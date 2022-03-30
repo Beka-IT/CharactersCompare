@@ -1,36 +1,29 @@
-
-
-
 <template>
   <div id="adminPage">
     <div>
       <h1 class="header">Добавить героя:</h1>
     </div>
-     <div class="incorrectLoginOrPassword">
-     </div>
     <form @submit.prevent="addHero">
-      
-      <div>
-        <div class="label" for="fullname">
-          <p  >Полное имя персонажа:</p>
-        </div>
-        <input name="fullname" id="fullname" v-model="fullname" placeholder="">
-      </div>
-      <div>
-        <div for="photoLink" class="label">
-         <p >Ссылка на фото героя:</p>
-        </div>
-        <input name="photoLink" id="photoLink" v-model="photoLink" placeholder="" type="text">
-      </div>
-      <div>
-        <div for="rating" class="label">
-         <p >Рейтинг героя</p>
-        </div>
-        <input name="rating" id="rating" v-model="rating" placeholder="" type="number">
-      </div>
-        
-      <input class="btn" type="submit" value="Готово">
+          <input name="fullname" id="fullname" v-model="fullname" placeholder="Имя персонажа">
+          <input name="photoLink" id="photoLink" v-model="photoLink" placeholder="Ссылка на фото героя" type="text">  
+          <input name="rating" id="rating" v-model="rating" placeholder="Рейтинг героя" type="number">
+          <input class="btn" type="submit" value="Готово">
     </form>
+
+    <div>
+      <h1 class="header">Список героев:</h1>
+    </div>
+    <div>
+        <div  v-for="hero in heroes" >
+          <div id="elements">
+            <img width="80" height="80" v-bind:src="hero.photoLink"/>
+            <div class="text">{{ hero.fullname}}</div>
+            <div class="text">{{hero.rating}}</div>
+            <button @click="deleteHero(hero.id)" class="delete">Удалить</button>
+          </div>
+          <hr/>
+        </div>
+    </div>
   </div>
 </template>
 <script>
@@ -44,13 +37,32 @@ export default {
       id: 0,
       fullname: "",
       photoLink: "",
-      rating: 0
-    };
-  }, 
-  updated(){
-   
+      rating: 0,
+      heroes: [],
+   }
+  } ,
+  mounted: function mounted () {
+    if(localStorage.getItem('isAuth') != 'true'){
+      window.location.href = 'http://localhost:3000/#/admin';
+            
+    }
+    this.getAllHeroes()
   },
   methods: {
+    async getAllHeroes(){
+      fetch("https://localhost:5001/api/Character")
+      .then( response => response.json() )
+      .then( response => {
+          this.heroes = response;
+      } );
+    },
+    async deleteHero(heroId){
+      fetch( `https://localhost:5001/api/Character/${heroId}` )
+      .then( response => response.json() )
+      .then( response => {
+          this.getAllHeroes()
+      } );
+    },
     async addHero() {
       
         const { id,photoLink, fullname, rating} = this;
@@ -79,7 +91,7 @@ export default {
           let el3 = document.getElementById("rating");
           el3.value = "100";
           el3.dispatchEvent(new Event('input'));
-
+            this.getAllHeroes()
             return response.json()
           })
         let data = res.json()
@@ -94,52 +106,57 @@ export default {
 
 <style scoped> 
 #adminPage{
-  width: 400px;
   background-color: white;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 120px;
+  margin-top: 20px;
   border-radius: 10px;
+  width: 90%;
+  overflow: visible;
+}
+.text{
+  margin-left: 30px;
+  width: 200px;
+  color: green;
+  font-size: 20px;
+}
+.delete{
+  margin-left: 10px;
+  margin-top: 5px;
+  padding: 10px;
+  height: 40px;
+  color: gold;
+  background-color: #FF392E;
+  border-radius: 10px;
+  border: 2px solid #FF392E;
+}
+.delete:hover{
+  background-color: gold;
+  color:#FF392E;
 }
 .header{
   text-align: center;
   color: #3CAEA3;
 }
+#elements{
+  display: flex;
+  margin-left: 270px;
+}
 form {
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
-    width: 60%;
-    text-align: center;
     padding: 20px;
+    padding-right: 0px;    
     padding-left: 0px;
     border-radius: 10px;
-
+    justify-content: space-around;
 }
-
-.label {
-    height: 20px;
-    font-size: 12px;
-    text-align:left;
-    color: red;
-    text-font: sans-serif;
-}
-.incorrectLoginOrPassword {
-
-    height: 25px;
-    font-size: 18px;
-    text-align:center;
-    color: red;
-    text-font: sans-serif;
-}
-.optional{
-  color: gray;
-}
-
 input, select {
     margin-top: 5px;
-    display: block;
+    margin-left: 20px;
     padding: 10px 6px;
-    width: 100%;
+    width: 280px;
     box-sizing: bordre-box;
     border: 1px solid #3CAEA3;
     border-radius: 4px;
@@ -148,19 +165,11 @@ input, select {
 
 input[type="checkbox"] {
     width:16px;
-    margin: 0 10px 0;
+    margin-left: 20px;
     position: relative;
     top: 2px;
 }
 
-.pill {
-    display: inline-block;
-    margin: 20px 10px 0 0 ;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    cursor: pointer;
-}
 
 .btn {
     width: 150px;
@@ -169,16 +178,11 @@ input[type="checkbox"] {
     border-radius: 10px;
     margin: auto;
     margin-top: 5px;
+    margin-left: 20px;
 }
 
 
 
-.error {
-    color: #ff0000;
-    margin-top: 10px;
-    font-size: 0.8em;
-    font-weight: bold;
-}
 </style>
 
 

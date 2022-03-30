@@ -23,6 +23,12 @@ namespace Server.Controllers
             var characters = await characterService.GetAllCharactersAsync();
             return characters;
         }
+        [HttpGet("{id}")]
+        public async Task<Character> DeleteCharacter(int id)
+        {
+            var characters = await characterService.DeleteCharacterAsync(id);
+            return characters;
+        }
         [HttpPost]
         public async Task<ActionResult<Character>> AddCharacter(Character character)
         {

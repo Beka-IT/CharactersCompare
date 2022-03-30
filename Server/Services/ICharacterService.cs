@@ -8,5 +8,10 @@ namespace Server.Services
     {
         Task<List<Character>> GetAllCharactersAsync();
         Task<Character> AddCharacterAsync(Character character);
+        Task<Character> DeleteCharacterAsync(int id);
+        Task<List<Character>> GetOrderedListOfCharactersAsync();
+        Task<List<Character>> GetRandomTwoCharactersAsync();
+        Task<Character> UpdatedRatingOfCharactersAsync(int id1, int id2);
+
     }
 }

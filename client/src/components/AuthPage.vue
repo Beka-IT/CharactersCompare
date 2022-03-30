@@ -101,13 +101,11 @@ export default {
           }
         ).then(response=>{
           this.responeFromServer = response.statusText
-
-            return response.json()
-          }).then(data=>{
-            if(this.responeFromServer != "Unauthorized"){
-              localStorage.setItem( 'tokens', JSON.stringify(data) );
-              window.location.href = 'http://localhost:8080/admin';
-            }
+          if(response.statusText == "OK"){
+            localStorage.setItem('isAuth','true')
+            window.location.href = 'http://localhost:3000/#/admin/edit';
+            
+          }   
         });
         let data = res.json()
         console.log(data)
