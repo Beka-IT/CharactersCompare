@@ -12,6 +12,6 @@ namespace Server.Services
         Task<List<Character>> GetOrderedListOfCharactersAsync();
         Task<List<Character>> GetRandomTwoCharactersAsync();
         Task<Character> UpdatedRatingOfCharactersAsync(int id1, int id2);
-
+        Task<List<Character>> SearchAndGetCharactersAsync(string name);
     }
 }

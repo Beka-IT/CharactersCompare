@@ -41,6 +41,12 @@ namespace Server.Services
             await db.SaveChangesAsync();
             return hero;
         }
+        public async Task<List<Character>> SearchAndGetCharactersAsync(string name)
+        {
+            var heroes = await db.Characters.ToListAsync();
+            var searchedHeroes = heroes.Where(c => c.Fullname.Contains(name)).ToList();
+            return searchedHeroes;
+        }
         public async Task<List<Character>> GetOrderedListOfCharactersAsync()
         {
             var characters = await db.Characters.OrderByDescending(c=> c.Rating).ToListAsync();
@@ -72,6 +78,7 @@ namespace Server.Services
             await db.SaveChangesAsync();
             return await GetRandomCharacterAsync();
         }
+
         public async Task<Character> GetRandomCharacterAsync()
         {
             Character character;

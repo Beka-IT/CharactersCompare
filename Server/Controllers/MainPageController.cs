@@ -1,5 +1,6 @@
 
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,19 @@ namespace Server.Controllers
             var characters = await 
                 characterService.UpdatedRatingOfCharactersAsync(idOfCharacters[0],idOfCharacters[1]);
             return characters;
+        }
+        [HttpPost]
+        [Route("search/")]
+        public async Task<List<Character>> SearchAndGetCharacters(SearchForm form)
+        {   
+             var name = form.Name;
+            if(name != null)
+            {
+                name = char.ToUpper(name[0]) + name.Substring(1);
+                Console.WriteLine(name);
+            }
+            var heroes = await characterService.SearchAndGetCharactersAsync(name);
+            return heroes;
         }
 
     }

@@ -5,7 +5,11 @@ export default {
         isStarted: false,
         isRating: false,
         heroes:[],
+        searchedHeroes:[],
         c:1,
+        counter: 0,
+        searchStr:"",
+        isSearched:false,
         heroes1:{},
     }
   },
@@ -13,31 +17,66 @@ export default {
       this.c = 1
   },
   methods:{
-      back(){
-
-        this.isRating = false;
-      },
-      choose(id){
-          let idOfHeroes = []
-          if(this.heroes1[0].id == id){
-              idOfHeroes = [this.heroes1[0].id,this.heroes1[1].id]
-              this.heroes1.pop()
-          }else{
-              idOfHeroes = [this.heroes1[1].id,this.heroes1[0].id]
-              this.heroes1.shift()
-          }
-          fetch(
-          "https://localhost:5001/api/MainPage",
+      async search(){
+          this.isSearched = true
+          const searchStrToServer = this.searchStr
+          await fetch(
+          `https://localhost:5001/api/MainPage/search`,
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
             },
-            body: JSON.stringify(idOfHeroes)
+            body: JSON.stringify({
+                name: searchStrToServer
+            })
           }
-        ).then(res=>res.json()).then(res=>this.heroes1.push(res))
+        ).then(res=>res.json()).then(res=>this.searchedHeroes = res)
+      },
+      back(){
+
+        this.isRating = false;
+        this.isSearched = false
+      },
+      restart(){
+          this.isStarted = false
+          this.counter = 0
+      },
+      choose(id){
+          if(this.counter > 11)return
+          this.counter++
+          if(this.counter <12){
+              
+                console.log(this.counter)
+                let idOfHeroes = []
+                if(this.heroes1[0].id == id){
+                    idOfHeroes = [this.heroes1[0].id,this.heroes1[1].id]
+                    this.heroes1.pop()
+                }else{
+                    idOfHeroes = [this.heroes1[1].id,this.heroes1[0].id]
+                    this.heroes1.shift()
+                }
+                fetch(
+                "https://localhost:5001/api/MainPage",
+                {
+                    method: "POST",
+                    headers: {
+                    "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(idOfHeroes)
+                }
+                ).then(res=>res.json()).then(res=>this.heroes1.push(res))
+            }else{
+                if(this.heroes1[0].id == id){
+                    this.heroes1.pop()
+                }else{
+                    this.heroes1.shift()
+                }
+            }
+          
       },
       startGame(){
+          this.isRating= false
           this.isStarted = true
           fetch("https://localhost:5001/api/MainPage/vs")
             .then( response => response.json() )
@@ -47,6 +86,7 @@ export default {
       },
       async getRating(){
         this.c = 1
+        this.isSearched = false
         this.isRating = true;
         fetch("https://localhost:5001/api/MainPage")
         .then( response => response.json() )
@@ -62,16 +102,17 @@ export default {
 <template>
     <div id="mainPage">
         <div class="header">
-            <input class="search" type="text" placeholder="Поиск..."/>
-            <button class="searchbtn" >Искать</button>
-            <button v-if="!isRating" @click="getRating()" class="rating" >Рейтинг Героев</button>
-            <button v-if="isRating" @click="back()" class="rating" >Главная</button>
+            <input v-model="searchStr" class="search" type="text" placeholder="Поиск..."/>
+            <button class="searchbtn" @click="search()" >Искать</button>
+            <button v-if="!isRating && !isSearched" @click="getRating()" class="rating" >Рейтинг Героев</button>
+            <button v-if="isRating || isSearched" @click="back()" class="rating" >Главная</button>
             
         </div>
-        <div v-if="!isStarted && !isRating" class="startBlock1">
+        <div v-if="!isStarted && !isRating && !isSearched" class="startBlock1">
             <button @click="startGame()" class="startbtn">НАЧАТЬ!</button>
         </div>
-        <div v-if="isStarted && !isRating" v-for="hero in heroes1" class="startBlock">
+        
+        <div v-if="isStarted && !isRating && !isSearched" v-for="hero in heroes1" class="startBlock">
             <div class="hero" @click="choose(hero.id)">
                 <div class="heroName">{{hero.fullname}}</div>
                 <div class="heroImg">
@@ -79,11 +120,12 @@ export default {
                 </div>
             </div>
         </div>
+        <div class="winner" v-if="counter == 12 && !isRating">Победитель!</div>
+        <button v-if="counter == 12 && !isRating && !isSearched" @click="restart()" class="restart" >Рестарт</button>
         <div>
         <div class="ratingList" v-if="isRating" v-for="hero in heroes" >
           <div id="elements">
-          <div class="text1">#{{c++-500}}
-          </div>
+            <div class="text1">#{{heroes.indexOf(hero)+1}}</div>
             <img width="80" height="80" v-bind:src="hero.photoLink"/>
             <div class="text">{{ hero.fullname}}</div>
             <div class="text">{{Math.ceil(hero.rating)}}</div>
@@ -92,6 +134,15 @@ export default {
           <div class="divisor"></div>
         </div>
     </div>
+        <div class="searchedHeroes" v-if="isSearched" v-for="hero in searchedHeroes" >
+          <div id="elements">
+            <img width="80" height="80" v-bind:src="hero.photoLink"/>
+            <div class="text">{{ hero.fullname}}</div>
+            <div class="text">{{Math.ceil(hero.rating)}}</div>
+            
+          </div>
+          <div class="divisor"></div>
+        </div>
     </div>
 </template>
 
@@ -110,6 +161,12 @@ export default {
     height: 3px;
     background-color: gold;
 }
+.winner{
+    text-align:center;
+    transition:1s;
+    font-size: 60px;
+    color: #5CB85C;
+}
 .text1{
   margin-left: 30px;
   width: 200px;
@@ -127,18 +184,18 @@ export default {
   margin-left: 20px;
 }
 .startBlock1{
-    margin-left: auto;
-    margin-right: auto;
+    
     text-align: center;
 }
 .startBlock{
-    margin-left: 70px;
-    display:inline-block;
-    justify-content: space-between;
+    transition:0.5s;
+    display:inline-flex;
+    margin-left: 170px;
+    text-align: center;
     font-size: 30px;
 }
 .hero{
-    margin-left: 100px;
+    transition:.5s;
     border: 5px solid #007bff;
     color: #007bff;
 }
@@ -175,6 +232,20 @@ export default {
 }
 .searchbtn:hover{
     background-color: crimson;
+    color: gold;
+}
+.restart{
+    width: 200px;
+    margin-left:450px;
+    height:40px;
+    background-color: #5CB85C;
+    color: #007bff;
+    border: 2px solid #5CB85C;
+    border-radius: 10px; 
+    transition: 0.2s;
+    text-align:center;
+}
+.restart:hover{
     color: gold;
 }
 .rating{
