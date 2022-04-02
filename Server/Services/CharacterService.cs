@@ -76,10 +76,10 @@ namespace Server.Services
             }
             db.Characters.UpdateRange(winner,loser);
             await db.SaveChangesAsync();
-            return await GetRandomCharacterAsync();
+            return GetRandomCharacter();
         }
 
-        public async Task<Character> GetRandomCharacterAsync()
+        public Character GetRandomCharacter()
         {
             Character character;
             Random indexGenerator = new Random();
@@ -94,7 +94,7 @@ namespace Server.Services
         public async Task<List<Character>> GetRandomTwoCharactersAsync()
         {
             counter = 0;
-            allCharacters =  db.Characters.ToList();
+            allCharacters = await db.Characters.ToListAsync();
             var characters = new List<Character>();
             Random indexGenerator = new Random();
             int indexOfFirstCharacter = indexGenerator.Next(allCharacters.Count);

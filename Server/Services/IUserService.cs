@@ -9,7 +9,9 @@ namespace Server.Services
 {
     public interface IUserService
     {
+        Task SaveChangesAsync();
         Task<List<User>> GetAllUsersAsync();
+        List<User> GetAllUsers();
         Task<User> GetUserAsync(int id);
 
         Task<User> AddUserAsync(User user);

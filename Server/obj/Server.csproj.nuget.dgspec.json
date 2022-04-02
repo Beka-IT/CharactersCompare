@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/bektursun/Desktop/programming/dotnet-projects/pet_projects/CharacterCompare/Server/Server.csproj": {}
+    "/home/bektursun/Desktop/programming/dotnet-projects/pet_projects/CharacterCompareRefactoring/CharactersCompare/Server/Server.csproj": {}
   },
   "projects": {
-    "/home/bektursun/Desktop/programming/dotnet-projects/pet_projects/CharacterCompare/Server/Server.csproj": {
+    "/home/bektursun/Desktop/programming/dotnet-projects/pet_projects/CharacterCompareRefactoring/CharactersCompare/Server/Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/bektursun/Desktop/programming/dotnet-projects/pet_projects/CharacterCompare/Server/Server.csproj",
+        "projectUniqueName": "/home/bektursun/Desktop/programming/dotnet-projects/pet_projects/CharacterCompareRefactoring/CharactersCompare/Server/Server.csproj",
         "projectName": "Server",
-        "projectPath": "/home/bektursun/Desktop/programming/dotnet-projects/pet_projects/CharacterCompare/Server/Server.csproj",
+        "projectPath": "/home/bektursun/Desktop/programming/dotnet-projects/pet_projects/CharacterCompareRefactoring/CharactersCompare/Server/Server.csproj",
         "packagesPath": "/home/bektursun/.nuget/packages/",
-        "outputPath": "/home/bektursun/Desktop/programming/dotnet-projects/pet_projects/CharacterCompare/Server/obj/",
+        "outputPath": "/home/bektursun/Desktop/programming/dotnet-projects/pet_projects/CharacterCompareRefactoring/CharactersCompare/Server/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/bektursun/.nuget/NuGet/NuGet.Config"
@@ -38,6 +38,14 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.1.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[5.0.14, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.14, )"
@@ -61,6 +69,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.11.1, )"
             }
           },
           "imports": [

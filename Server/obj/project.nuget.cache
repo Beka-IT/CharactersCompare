@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "ixbgsra6EfbkpQy+yHnrVChqIj0CYCpHxoYa4f0U2nJztr/A1hrkAXz0fSxw1pikDdOTgVGyMG5HBnwqTBNdAg==",
+  "dgSpecHash": "HnLb4Wa3EH3sVt8CaTvtgC45UMb44UnksUOFzCSySHcTzbdFxEgbiRIHRyUrZ1xq6MU/GaUEzk7yhB4yHSdC1g==",
   "success": true,
-  "projectFilePath": "/home/bektursun/Desktop/programming/dotnet-projects/pet_projects/CharacterCompare/Server/Server.csproj",
+  "projectFilePath": "/home/bektursun/Desktop/programming/dotnet-projects/pet_projects/CharacterCompareRefactoring/CharactersCompare/Server/Server.csproj",
   "expectedPackageFiles": [
+    "/home/bektursun/.nuget/packages/automapper/10.1.1/automapper.10.1.1.nupkg.sha512",
+    "/home/bektursun/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/8.1.1/automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "/home/bektursun/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
+    "/home/bektursun/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/5.0.14/microsoft.aspnetcore.authentication.jwtbearer.5.0.14.nupkg.sha512",
     "/home/bektursun/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/home/bektursun/.nuget/packages/microsoft.entityframeworkcore/5.0.14/microsoft.entityframeworkcore.5.0.14.nupkg.sha512",
     "/home/bektursun/.nuget/packages/microsoft.entityframeworkcore.abstractions/5.0.14/microsoft.entityframeworkcore.abstractions.5.0.14.nupkg.sha512",
@@ -22,6 +25,11 @@
     "/home/bektursun/.nuget/packages/microsoft.extensions.logging.abstractions/5.0.0/microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
     "/home/bektursun/.nuget/packages/microsoft.extensions.options/5.0.0/microsoft.extensions.options.5.0.0.nupkg.sha512",
     "/home/bektursun/.nuget/packages/microsoft.extensions.primitives/5.0.0/microsoft.extensions.primitives.5.0.0.nupkg.sha512",
+    "/home/bektursun/.nuget/packages/microsoft.identitymodel.jsonwebtokens/6.11.1/microsoft.identitymodel.jsonwebtokens.6.11.1.nupkg.sha512",
+    "/home/bektursun/.nuget/packages/microsoft.identitymodel.logging/6.11.1/microsoft.identitymodel.logging.6.11.1.nupkg.sha512",
+    "/home/bektursun/.nuget/packages/microsoft.identitymodel.protocols/6.7.1/microsoft.identitymodel.protocols.6.7.1.nupkg.sha512",
+    "/home/bektursun/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/6.7.1/microsoft.identitymodel.protocols.openidconnect.6.7.1.nupkg.sha512",
+    "/home/bektursun/.nuget/packages/microsoft.identitymodel.tokens/6.11.1/microsoft.identitymodel.tokens.6.11.1.nupkg.sha512",
     "/home/bektursun/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
     "/home/bektursun/.nuget/packages/npgsql/5.0.5/npgsql.5.0.5.nupkg.sha512",
     "/home/bektursun/.nuget/packages/npgsql.entityframeworkcore.postgresql/5.0.6/npgsql.entityframeworkcore.postgresql.5.0.6.nupkg.sha512",
@@ -32,7 +40,10 @@
     "/home/bektursun/.nuget/packages/system.collections.immutable/5.0.0/system.collections.immutable.5.0.0.nupkg.sha512",
     "/home/bektursun/.nuget/packages/system.componentmodel.annotations/5.0.0/system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "/home/bektursun/.nuget/packages/system.diagnostics.diagnosticsource/5.0.1/system.diagnostics.diagnosticsource.5.0.1.nupkg.sha512",
-    "/home/bektursun/.nuget/packages/system.runtime.compilerservices.unsafe/4.6.0/system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512"
+    "/home/bektursun/.nuget/packages/system.identitymodel.tokens.jwt/6.11.1/system.identitymodel.tokens.jwt.6.11.1.nupkg.sha512",
+    "/home/bektursun/.nuget/packages/system.reflection.emit/4.7.0/system.reflection.emit.4.7.0.nupkg.sha512",
+    "/home/bektursun/.nuget/packages/system.runtime.compilerservices.unsafe/4.6.0/system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512",
+    "/home/bektursun/.nuget/packages/system.security.cryptography.cng/4.5.0/system.security.cryptography.cng.4.5.0.nupkg.sha512"
   ],
   "logs": []
 }
