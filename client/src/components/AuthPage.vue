@@ -86,8 +86,8 @@ export default {
       if(this.errors.isEmpty && this.isReady){
         this.wasRequest = true
         const { Id,login, password} = this;
-        const res = await fetch(
-          "https://localhost:5001/api/Auth",
+        await fetch(
+          "https://localhost:5001/api/Auth/login",
           {
             method: "POST",
             headers: {
@@ -102,13 +102,16 @@ export default {
         ).then(response=>{
           this.responeFromServer = response.statusText
           if(response.statusText == "OK"){
-            localStorage.setItem('isAuth','true')
-            window.location.href = 'http://localhost:3000/#/admin/edit';
+            return response.json()
             
-          }   
+          }
+        }).then(res=>{
+          if(res != undefined){
+              localStorage.setItem('tokens',JSON.stringify(res))
+            window.location.href = 'http://localhost:3000/#/admin/edit';
+          }
+          
         });
-        let data = res.json()
-        console.log(data)
         
       }
     }

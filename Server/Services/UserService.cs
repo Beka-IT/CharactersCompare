@@ -37,8 +37,14 @@ namespace Server.Services
             return user;
         }
         
-        
-
+        public List<User> GetAllUsers()
+        {
+            return db.Users.Include(u=>u.LoginModel).ToList();
+        }
+        public async Task SaveChangesAsync()
+        {
+            await db.SaveChangesAsync();
+        }
         public async Task<User> UpdateUserAsync(User user)
         {
             User updatedUser = null;

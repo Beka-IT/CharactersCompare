@@ -42,22 +42,35 @@ export default {
    }
   } ,
   mounted: function mounted () {
-    if(localStorage.getItem('isAuth') != 'true'){
+    if(localStorage.getItem('tokens') == null || localStorage.getItem('tokens')=="undefined"){
       window.location.href = 'http://localhost:3000/#/admin';
-            
     }
     this.getAllHeroes()
   },
   methods: {
     async getAllHeroes(){
-      fetch("https://localhost:5001/api/Character")
+      fetch("https://localhost:5001/api/Character",{
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + JSON.stringify(window.localStorage.getItem('tokens'))
+        }
+      })
       .then( response => response.json() )
       .then( response => {
           this.heroes = response;
       } );
     },
     async deleteHero(heroId){
-      fetch( `https://localhost:5001/api/Character/${heroId}` )
+      fetch( `https://localhost:5001/api/Character/${heroId}`,{
+          method: 'GET',
+          headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + JSON.stringify(window.localStorage.getItem('tokens'))
+        }
+      } )
       .then( response => response.json() )
       .then( response => {
           this.getAllHeroes()
@@ -71,8 +84,10 @@ export default {
           {
             method: "POST",
             headers: {
-              "Content-Type": "application/json"
-            },
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + JSON.stringify(window.localStorage.getItem('tokens'))
+          },
             body: JSON.stringify({
               id,
               fullname,
